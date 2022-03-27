@@ -1,26 +1,30 @@
-package com.henry.fowler.Photography.controller;
+package com.henry.fowler.Photography.photodata.controller;
 
 
-import com.henry.fowler.Photography.dto.PhotoDataDTO;
-import com.henry.fowler.Photography.model.PhotoData;
-import com.henry.fowler.Photography.service.PhotoDataService;
-import com.henry.fowler.Photography.util.ObjectMapperUtils;
+import com.henry.fowler.Photography.photodata.dto.PhotoDataDTO;
+import com.henry.fowler.Photography.photodata.model.PhotoData;
+import com.henry.fowler.Photography.photodata.service.PhotoDataService;
+import com.henry.fowler.Photography.photodata.util.ObjectMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
-@RequestMapping(value = "/photos")
+@RequestMapping(value = "/api")
 @RestController
 public class PhotographyRestController {
 
         @Autowired
         private PhotoDataService photoDataService;
 
-        @GetMapping(value = "/")
+        @GetMapping(value = "/getPhotoData")
     public List<PhotoDataDTO> getAllPhotoData() {
             return ObjectMapperUtils.mapAll(photoDataService.findAll(), PhotoDataDTO.class);
         }
@@ -30,22 +34,12 @@ public class PhotographyRestController {
             return ObjectMapperUtils.map(photoDataService.findByFilename(filename), PhotoDataDTO.class);
         }
 
-        @GetMapping(value = "/byLocation/{location}")
-        public List<PhotoDataDTO> findAllByLocationLike(@PathVariable("location") String location){
-            return ObjectMapperUtils.mapAll(photoDataService.findAllByLocationLike(location), PhotoDataDTO.class);
-        }
-
-        @GetMapping(value = "/byDate/{dateTaken}")
-        public PhotoDataDTO getPhotoByDateTaken(@PathVariable("dateTaken") Date dateTaken){
-            return ObjectMapperUtils.map(photoDataService.findByDateTaken(dateTaken), PhotoDataDTO.class);
-        }
-
         @GetMapping (value = "/orderByFileSize")
         public List<PhotoDataDTO> findAllByOrderByFilesizeDesc() {
             return ObjectMapperUtils.mapAll(photoDataService.findAllByOrderByFilesizeDesc(), PhotoDataDTO.class);
         }
 
-        @PostMapping (value = "/save")
+        @PostMapping (value = "/savePhotoData")
         public ResponseEntity<?> saveOrUpdatePhotoData(@RequestBody PhotoDataDTO photoDataDTO) {
             photoDataService.saveOrUpdatePhotoData(ObjectMapperUtils.map(photoDataDTO, PhotoData.class));
             return new ResponseEntity("Photo data added successfully", HttpStatus.OK);
@@ -55,6 +49,11 @@ public class PhotographyRestController {
         public ResponseEntity<?> deletePhotoByFileName(@PathVariable String filename) {
             photoDataService.deletePhotoDataById(photoDataService.findByFilename(filename).getId());
             return new ResponseEntity("Photo data deleted successfully", HttpStatus.OK);
+        }
+
+        @RequestMapping (value = "/help")
+        public ResponseEntity<?> requestHelp(){
+            return new ResponseEntity("HELP - Get all photo data: /getPhotoData - delete Photo Data: /delete/{filename} - Save or update Photo Data: /savePhotoData", HttpStatus.OK);
         }
 
 }

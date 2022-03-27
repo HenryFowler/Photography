@@ -1,0 +1,15 @@
+<html>
+<body>
+<h1>View Photo</h1>
+
+Title: <span th:text="${title}">name</span>
+<br>
+Description: <span th:text="${description}">description</span>
+<br>
+Location Taken: <span th:text="${location}">location</span>
+<br>
+Filename: <span th:text="${filename}">filename</span>
+<br>
+<img alt="sample" th:src="*{'data:image/png;base64,'+image}" width="200" />
+</body>
+</html>

@@ -1,8 +1,9 @@
-package com.henry.fowler.Photography.service.impl;
+package com.henry.fowler.Photography.photodata.service.impl;
 
-import com.henry.fowler.Photography.model.PhotoData;
-import com.henry.fowler.Photography.repository.PhotoDataRepository;
-import com.henry.fowler.Photography.service.PhotoDataService;
+import com.henry.fowler.Photography.photodata.model.PhotoData;
+import com.henry.fowler.Photography.photodata.service.PhotoDataService;
+import com.henry.fowler.Photography.photodata.repository.PhotoDataRepository;
+import com.henry.fowler.Photography.photos.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,15 +22,7 @@ public class PhotoDataServiceImpl implements PhotoDataService {
     }
 
     @Override
-    public List<PhotoData> findAllByLocationLike(String location) {
-        return photoDataRepository.findAllByLocationLike(location);
-    }
-
-    @Override
     public PhotoData findByFilename(String filename) { return photoDataRepository.findByFilename(filename);}
-
-    @Override
-    public PhotoData findByDateTaken(Date dateTaken) {return photoDataRepository.findByDateTaken(dateTaken);}
 
     @Override
     public List<PhotoData> findAllByOrderByFilesizeDesc() { return photoDataRepository.findAllByOrderByFilesizeDesc();}
@@ -38,5 +31,13 @@ public class PhotoDataServiceImpl implements PhotoDataService {
     public PhotoData saveOrUpdatePhotoData(PhotoData photoData) { return photoDataRepository.save(photoData); }
 
     @Override
-    public void deletePhotoDataById(String id){photoDataRepository.deleteById(id);}
+    public PhotoData savePhotoDataFromFrontEnd(String filename, float filesize, String location, String description, String title) {
+        PhotoData photoData = new PhotoData(filename, filesize, location, description, title);
+        photoData = photoDataRepository.insert(photoData);
+        return photoData;
+    }
+
+    @Override
+    public void deletePhotoDataById(String id){
+        photoDataRepository.deleteById(id);}
 }

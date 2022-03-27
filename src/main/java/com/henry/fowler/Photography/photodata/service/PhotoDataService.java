@@ -1,6 +1,6 @@
-package com.henry.fowler.Photography.service;
+package com.henry.fowler.Photography.photodata.service;
 
-import com.henry.fowler.Photography.model.PhotoData;
+import com.henry.fowler.Photography.photodata.model.PhotoData;
 
 import java.util.Date;
 import java.util.List;
@@ -11,13 +11,12 @@ public interface PhotoDataService {
 
     PhotoData findByFilename(String filename);
 
-    List<PhotoData> findAllByLocationLike(String location);
-
-    PhotoData findByDateTaken(Date dateTaken);
-
     List<PhotoData> findAllByOrderByFilesizeDesc();
 
     PhotoData saveOrUpdatePhotoData(PhotoData photoData);
 
+    PhotoData savePhotoDataFromFrontEnd(String filename, float filesize, String location, String description, String title);
+
     void deletePhotoDataById(String id);
+
 }

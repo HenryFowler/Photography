@@ -1,4 +1,4 @@
-package com.henry.fowler.Photography.config;
+package com.henry.fowler.Photography.security.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -10,8 +10,9 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/home").setViewName("home");
         registry.addViewController("/").setViewName("home");
-        registry.addViewController("/hello").setViewName("hello");
+        registry.addViewController("/main").setViewName("main");
         registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/qr").setViewName("qr");
     }
 }
 

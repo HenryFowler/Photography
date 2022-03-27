@@ -1,4 +1,4 @@
-package com.henry.fowler.Photography.util;
+package com.henry.fowler.Photography.photodata.util;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

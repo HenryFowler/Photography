@@ -1,4 +1,6 @@
-package com.henry.fowler.Photography.dto;
+package com.henry.fowler.Photography.photodata.dto;
+
+import org.bson.types.Binary;
 
 import java.util.Date;
 
@@ -18,14 +20,6 @@ public class PhotoDataDTO {
 
     public void setFilename(String filename) {
         this.filename = filename;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
     }
 
     public float getFilesize() {
@@ -52,35 +46,32 @@ public class PhotoDataDTO {
         this.description = description;
     }
 
-    public Date getTimeTaken() {
-        return timeTaken;
-    }
-
-    public void setTimeTaken(Date timeTaken) {
-        this.timeTaken = timeTaken;
-    }
 
     private String id;
     private String filename;
-    private String path;
     private float filesize;
     private String location;
     private String description;
-    private Date timeTaken;
+    private String title;
 
-    public PhotoDataDTO(){
+    public PhotoDataDTO() {
 
     }
 
-    public PhotoDataDTO(String id, String filename, String path, float filesize, String location, String description, Date timeTaken){
-        this.id = id;
+    public PhotoDataDTO(String id, String filename, float filesize, String location, String description, String title) {
         this.filename = filename;
-        this.path = path;
         this.filesize = filesize;
         this.location = location;
         this.description = description;
-        this.timeTaken = timeTaken;
+        this.title = title;
     }
 
+        public String getTitle () {
+            return title;
+        }
+
+        public void setTitle (String title){
+            this.title = title;
+        }
 
 }

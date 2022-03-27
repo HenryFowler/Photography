@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QR Code Generator</title>
+</head>
+<body>
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<h1>Generate QR Code</h1>
+<form method="GET" action="/api/v1/getqrcode" enctype ="application/x-www-form-urlencoded">
+    Generate QR code with this data:<input type="text" name="url"/>
+    <input type="submit" value="Generate"/>
+</form>
+</body>
+</html>
